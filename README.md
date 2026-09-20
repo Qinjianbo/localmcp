@@ -8,81 +8,60 @@
 
 ## 快速开始
 
-第一次使用，按下面 5 步操作即可。默认使用公共 Worker（连接 ChatGPT 和本机的中继服务），无需准备服务器、Cloudflare 账号或下载本项目源码。
+默认使用公共中继服务，无需自建 Worker。
 
 ### 第一步：准备环境
 
-在电脑上安装 **Node.js 22 或更高版本**，并准备可以开启开发者模式的 ChatGPT 账号。
-
-打开终端（macOS 的“终端”或 Windows 的 PowerShell），执行：
-
-```sh
-node -v
-npm -v
-```
-
-`node -v` 应显示 `v22` 或更高版本，`npm -v` 应显示版本号。如果提示找不到命令，先安装 Node.js，再重新打开终端。
+- 安装 **Node.js 22+**，在终端运行 `node -v` 确认版本。
+- 准备可开启开发者模式的 ChatGPT 账号。
 
 ### 第二步：安装并启动 LocalMCP
 
-在终端中依次执行：
+打开终端，依次执行：
 
 ```sh
 npm install -g @daodao97/localmcp
 localmcp
 ```
 
-首次启动会自动创建 `~/.localmcp/` 配置、注册独立设备，并在后台启动服务。成功后，终端会显示 `Status: running` 和 `MCP URL:`。
+看到 `Status: running` 后，复制 `MCP URL:` 后的**完整地址**。可随时运行 `localmcp status` 再次查看。
 
-复制 `MCP URL:` 后面的**完整地址**，下一步连接时需要用到。地址包含 `/mcp/<设备ID>/<密钥>`，不要只复制域名。忘记复制时，可以重新执行：
-
-```sh
-localmcp status
-```
-
-> 完整 MCP URL 包含访问凭证，请勿公开分享或提交到 Git。
-
-关闭终端不会停止服务；使用期间请保持这台电脑开机、联网。默认工作区是当前用户的主目录（`~`），默认开启文件、Shell 和持久进程工具；要指定项目目录，可在完成连接后查看[配置与扩展](#配置与扩展)。
+> MCP URL 包含访问凭证，请勿公开。服务在后台运行，使用时保持电脑开机、联网即可。
 
 ### 第三步：开启 ChatGPT 开发者模式
 
-在浏览器中登录 ChatGPT，打开 **设置 → 安全与登录 → 开发者模式** 并开启，也可以[点我打开设置](https://chatgpt.com/#settings/Security?section=developer-mode)。
+登录 ChatGPT，在 **设置 → 安全与登录** 中开启 **开发者模式**：[点我打开设置](https://chatgpt.com/#settings/Security?section=developer-mode)。
 
 ![在 ChatGPT 中开启开发者模式](chatgpt_setting.png)
 
 ### 第四步：在 ChatGPT 中添加 LocalMCP
 
-打开 ChatGPT 的插件页面，点击新增按钮，也可以[点我新建插件](https://chatgpt.com/plugins#settings/Connectors?create-connector=true&redirectAfter=%2Fplugins)。按下面的内容填写：
+[点我新建插件](https://chatgpt.com/plugins#settings/Connectors?create-connector=true&redirectAfter=%2Fplugins)，填写后创建：
 
 | 字段 | 填写内容 |
 | --- | --- |
 | 名称 | `LocalMCP` |
-| 描述（如需填写） | 连接本机文件和开发工具 |
+| 描述（如需） | 连接本机文件和开发工具 |
 | 服务器 URL | 第二步复制的完整 MCP URL |
 | 身份验证 | **None（无）** |
 
-按页面提示完成创建，等待 ChatGPT 读取工具列表。
-
 ![在 ChatGPT 中添加 LocalMCP 插件](chatgpt_plugin.png)
 
-### 第五步：发起第一次调用
+### 第五步：开始使用
 
-在个人插件中找到 LocalMCP，如页面显示安装按钮，先完成安装。回到 ChatGPT 首页，切换到 **Work**，新建对话，在输入框键入 `@` 并选择 **LocalMCP**，然后发送：
+在个人插件中安装 LocalMCP，回到首页切换到 **Work**，新建对话。输入 `@` 选择 **LocalMCP**，发送：
 
-> 请查看我的本机工作区信息，并列出工作区根目录下的文件和文件夹，不修改任何文件。
+> 请列出本机工作区的路径和根目录下的文件，不修改任何内容。
 
-如果 ChatGPT 显示工具调用确认，核对后允许执行。能返回本机工作区路径和目录列表，就说明连接成功，可以开始使用了。
-
-ChatGPT 的操作入口可参照 [OpenAI 官方快速开始](https://developers.openai.com/plugins/quickstart/)。
+如出现工具调用确认，核对后允许。返回本机目录列表即连接成功。
 
 <details>
-<summary>没有成功？按这里检查</summary>
+<summary>遇到问题？</summary>
 
-- **提示找不到 `localmcp` 命令**：先确认安装命令成功，再重新打开终端执行 `localmcp`。
-- **启动失败或没有 MCP URL**：执行 `localmcp status` 查看状态，并打开输出中 `Log:` 指向的日志文件（默认 `~/.localmcp/agent.log`）查看错误。
-- **ChatGPT 无法连接**：确认本机已启动 LocalMCP、电脑保持联网，服务器 URL 与 `localmcp status` 输出完全一致，身份验证选择了 **None**。
-- **找不到开发者模式或插件入口**：确认登录的账号及所在工作区允许使用开发者模式。
-- **对话中找不到 LocalMCP**：确认插件已创建并安装，在 Work 中新建对话，再输入 `@` 选择。
+- **找不到 `localmcp` 命令**：确认安装成功，再重新打开终端。
+- **启动失败**：运行 `localmcp status`，查看 `Log:` 指向的日志。
+- **ChatGPT 无法连接**：确认本机服务已启动、网络正常，URL 复制完整，身份验证为 **None**。
+- **找不到开发者模式或插件**：检查账号权限，确认插件已安装，并在 Work 中新建对话。操作入口见 [OpenAI 官方说明](https://developers.openai.com/plugins/quickstart/)。
 
 </details>
 
@@ -171,6 +150,8 @@ curl https://localmcp-relay.YOUR-SUBDOMAIN.workers.dev/healthz
 ## 配置与扩展
 
 ### 修改工作区和工具开关
+
+首次启动会自动创建配置，默认工作区为用户主目录（`~`），开启文件、Shell 和持久进程工具。
 
 默认配置文件是 `~/.localmcp/localmcp.json`（`~` 表示当前用户的主目录）。用文本编辑器打开它，把下面的 `/Users/me/code/project` 替换为你电脑上已经存在的项目目录；Windows 路径可以写成 `C:/Users/你的用户名/code/project`。
 
