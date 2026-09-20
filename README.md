@@ -45,7 +45,7 @@ localmcp
 | 服务器 URL | 第二步复制的完整 MCP URL |
 | 身份验证 | **None（无）** |
 
-![在 ChatGPT 中添加 LocalMCP 插件](chatgpt_plugin.png)
+![在 ChatGPT 中添加 LocalMCP 插件](chatgpt_add_plugin.png)
 
 ### 第五步：开始使用
 
