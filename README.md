@@ -32,7 +32,7 @@ localmcp
 
 登录 ChatGPT，在 **设置 → 安全与登录** 中开启 **开发者模式**：[点我打开设置](https://chatgpt.com/#settings/Security?section=developer-mode)。
 
-![在 ChatGPT 中开启开发者模式](chatgpt_setting.png)
+![在 ChatGPT 中开启开发者模式](chatgpt_developer_mode.png)
 
 ### 第四步：在 ChatGPT 中添加 LocalMCP
 

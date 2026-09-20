@@ -19,7 +19,7 @@
     "LICENSE",
     "localmcp.png",
     "chatgpt_plugin.png",
-    "chatgpt_setting.png"
+    "chatgpt_developer_mode.png"
   ],
   "scripts": {
     "clean": "node -e \"require('node:fs').rmSync('dist',{recursive:true,force:true})\"",
